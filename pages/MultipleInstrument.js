@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { TwoChartComponent } from "./TwoChartComponent";
+import { ChartComponent } from "./ChartComponent";
 import { staticCandle } from "./utils/StaticCandleChart";
 import { combinedThree, combinedTwo } from "./utils/CombinedOHLC";
 import { Data1, Data2, Data3 } from "./utils/Data";
+import './styles.css'
+
 const candleObject = {
   upColor: "#26a69a",
   downColor: "#ef5350",
@@ -12,7 +14,7 @@ const candleObject = {
   wickDownColor: "#ef5350",
 };
 
-function App(props) {
+function MultipleInstrument(props) {
   const [data, setData] = useState([]);
   // const [Data1, setData1] = useState([]);
   // const [Data2, setData2] = useState([]);
@@ -84,8 +86,12 @@ function App(props) {
     }
   }, [checkboxValues, selectedOption]);
   return (
-    <>
-      <div className="space-y-2">
+    <div className='h-[100vh] w-full bg-pageBg flex flex-col justify-center' >
+    <div className='my-[32px] text-white text-[32px] text-center'>
+          Multiple Instrument
+    </div>
+    <div className="p-[50px]" >
+      <div  className="my-[50px] flex gap-[20px]">
         <label className="inline-flex items-center">
           <input
             type="checkbox"
@@ -94,7 +100,7 @@ function App(props) {
             onChange={handleCheckboxChange}
             className="form-checkbox text-indigo-600 h-5 w-5"
           />
-          <span className="ml-2 text-gray-700">Checkbox 1</span>
+          <span className="ml-2 text-white">Checkbox 1</span>
         </label>
         <label className="inline-flex items-center">
           <input
@@ -104,7 +110,7 @@ function App(props) {
             onChange={handleCheckboxChange}
             className="form-checkbox text-indigo-600 h-5 w-5"
           />
-          <span className="ml-2 text-gray-700">Checkbox 2</span>
+          <span className="ml-2 text-white">Checkbox 2</span>
         </label>
         <label className="inline-flex items-center">
           <input
@@ -114,18 +120,18 @@ function App(props) {
             onChange={handleCheckboxChange}
             className="form-checkbox text-indigo-600 h-5 w-5"
           />
-          <span className="ml-2 text-gray-700">Checkbox 3</span>
+          <span className="ml-2 text-white">Checkbox 3</span>
         </label>
       </div>
 
-      <TwoChartComponent
+      <ChartComponent
         {...props}
         data={data}
         seriesObject={candleObject}
         type={"candle"}
-      ></TwoChartComponent>
-      <div className="flex items-center space-x-4">
-        <label htmlFor="dropdown" className="text-gray-700">
+      ></ChartComponent>
+      <div className="flex items-center space-x-4 my-[20px]">
+        <label htmlFor="dropdown" className="text-white">
           Select an option:
         </label>
         <select
@@ -139,9 +145,10 @@ function App(props) {
           <option value={300}>5 min</option>
           <option value={1800}>30 min</option>
         </select>
+        </div>
       </div>
-    </>
+      </div>
   );
 }
 
-export default App;
+export default MultipleInstrument;

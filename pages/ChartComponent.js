@@ -1,9 +1,11 @@
 import { createChart, ColorType } from "lightweight-charts";
-import React, { useEffect, useRef, useState } from "react";
-import Axios from "axios";
+import React, { useEffect, useRef } from "react";
 export const ChartComponent = (props) => {
   const {
     data,
+    type,
+    seriesObject,
+    candleObject,
     colors: {
       backgroundColor = "white",
       lineColor = "#2962FF",
@@ -17,33 +19,60 @@ export const ChartComponent = (props) => {
 
   useEffect(() => {
     const handleResize = () => {
-      chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+      chart.applyOptions({
+        width: chartContainerRef.current.clientWidth,
+      });
     };
+    let chart;
+    let candlestickSeries;
+    let series;
+    if(type==="candle") {
 
-    const chart = createChart(chartContainerRef.current, {
-      layout: {
-        background: { type: ColorType.Solid, color: backgroundColor },
-        textColor,
-      },
-      width: chartContainerRef.current.clientWidth,
-      height: 300,
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: false,
-      },
-    });
+        chart = createChart(chartContainerRef.current, {
+            layout: {
+              background: { color: "#222" },
+              textColor: "#DDD",
+            },
+            grid: {
+              vertLines: { color: "#444" },
+              horzLines: { color: "#444" },
+            },
+            width: chartContainerRef.current.clientWidth,
+            height: 300,
+            timeScale: {
+              timeVisible: true,
+              secondsVisible: false,
+            },
+          });
+
+          candlestickSeries = chart.addCandlestickSeries(candleObject);
+          candlestickSeries.setData(data);
+    }
+    if(type==="line") {
+        chart = createChart(chartContainerRef.current, {
+            layout: {
+              background: { type: ColorType.Solid, color: backgroundColor },
+              textColor,
+            },
+            width: chartContainerRef.current.clientWidth,
+            height: 300,
+            timeScale: {
+              timeVisible: true,
+              secondsVisible: false,
+            },
+          });
+          chart.timeScale().fitContent();
+      
+        series = chart.addBaselineSeries(seriesObject);
+          series.setData(data);
+    }
     chart.timeScale().fitContent();
 
-    const newSeries = chart.addBaselineSeries({
-      baseValue: { type: "price", price: 76 },
-      topLineColor: "rgba( 38, 166, 154, 1)",
-      topFillColor1: "rgba( 38, 166, 154, 0.28)",
-      topFillColor2: "rgba( 38, 166, 154, 0.05)",
-      bottomLineColor: "rgba( 239, 83, 80, 1)",
-      bottomFillColor1: "rgba( 239, 83, 80, 0.05)",
-      bottomFillColor2: "rgba( 239, 83, 80, 0.28)",
+    chart.timeScale().applyOptions({
+      borderColor: "#71649C",
     });
-    newSeries.setData(data);
+
+    
 
     window.addEventListener("resize", handleResize);
 

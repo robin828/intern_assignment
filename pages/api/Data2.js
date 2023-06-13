@@ -5634,15 +5634,11 @@ formattedData.forEach((dataPoint, ind) => {
 });
 
   console.log(ohlcData)
-//   console.log("********", formattedData);
 
 
 const handler = async (req, res) => {
-  /******* GET *********/
   if (req.method === "GET") {
-    // To test the server environment
     try {
-      console.log("********", formattedData);
       res.json({ ohlcData });
     } catch (error) {
       res.status(500).json({
