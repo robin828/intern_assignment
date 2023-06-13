@@ -106,7 +106,7 @@ export const CandleLiveChart = (props) => {
     </div>
     <div className='p-[50px] rounded-xl'>
       <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
-        {started ? "Stop updating" : "Start updating series"}
+      {!started && "Start updating candle"}
       </button>
       <Chart layout={chartLayoutOptions}>
         <Series

@@ -68,12 +68,12 @@ export const LiveChart = (props) => {
   return (
     <>
     <div className='h-[100vh] w-full bg-pageBg flex flex-col justify-center' >
-    <div className='my-[32px] text-white text-[32px] text-center'>
+      <div className='my-[32px] text-white text-[32px] text-center'>
           Line Live Chart
     </div>
     <div className='p-[50px] rounded-xl'>
       <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
-        {started ? "Stop updating" : "Start updating series"}
+        {!started && "Start updating series"}
       </button>
       <Chart layout={chartLayoutOptions}>
         <Series
@@ -88,42 +88,10 @@ export const LiveChart = (props) => {
         borderColor= 'red'
         />
       </Chart>
-      {/* <div className="flex items-center space-x-4 my-[16px] ">
-        <label htmlFor="dropdown" className="text-white ">
-          Select an option:
-        </label>
-        <select
-          id="dropdown"
-          value={selectedOption}
-          onChange={handleSelectChange}
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value={60}>1 min</option>
-          <option value={120}>2 min</option>
-          <option value={300}>5 min</option>
-          <option value={1800}>30 min</option>
-        </select>
-      </div> */}
+      
   </div>
         </div>
-      {/* <button type="button" onClick={() => setStarted((current) => !current)}>
-        {started ? "Stop updating" : "Start updating series"}
-      </button>
-      <Chart layout={chartLayoutOptions}>
-        <Series
-          ref={series1}
-          type={"line"}
-          // data={initialData}
-          color={lineColor}
-          baseValue={{ type: "price", price: 75 }}
-          topLineColor="rgba( 38, 166, 154, 1)"
-          topFillColor1="rgba( 38, 166, 154, 0.28)"
-          topFillColor2="rgba( 38, 166, 154, 0.05)"
-          bottomLineColor="rgba( 239, 83, 80, 1)"
-          bottomFillColor1="rgba( 239, 83, 80, 0.05)"
-          bottomFillColor2="rgba( 239, 83, 80, 0.28)"
-        />
-      </Chart> */}
+      
     </>
   );
 };
