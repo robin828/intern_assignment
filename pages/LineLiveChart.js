@@ -74,9 +74,9 @@ export const LiveChart = (props) => {
           Line Live Chart
     </div>
     <div className='p-[50px] rounded-xl'>
-      <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
-        {!started && "Start updating series"}
-      </button>
+    {!started &&<button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
+         Start updating series
+      </button>}
       <Chart layout={chartLayoutOptions}>
         <Series
           ref={series1}

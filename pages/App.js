@@ -27,7 +27,7 @@ function App(props) {
 	return (
     <div className='h-[100vh] w-full bg-pageBg flex flex-col justify-center' >
       <div className='my-[32px] text-white text-[32px] text-center'>
-            Title
+            Static Chart
       </div>
       <div className='p-[50px] rounded-xl'>
       <ChartComponent {...props} seriesObject={seriesObject} type="line" data={chartData}></ChartComponent>

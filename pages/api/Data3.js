@@ -5543,6 +5543,7 @@ const data =
         if (req.method === 'GET') {
           // To test the server environment
           try {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json({formattedData1});
           } catch (error) {
             res.status(500).json({

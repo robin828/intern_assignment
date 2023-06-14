@@ -5639,6 +5639,7 @@ formattedData.forEach((dataPoint, ind) => {
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.json({ ohlcData });
     } catch (error) {
       res.status(500).json({

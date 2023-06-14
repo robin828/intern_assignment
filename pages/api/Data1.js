@@ -5610,6 +5610,8 @@ const handler = async (req, res) => {
       // To test the server environment
       try {
         //console.log("********", formattedData1)
+        res.setHeader('Access-Control-Allow-Origin', '*');
+
         res.json({formattedData1});
       } catch (error) {
         res.status(500).json({
