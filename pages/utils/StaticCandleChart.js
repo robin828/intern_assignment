@@ -1,4 +1,4 @@
-export const staticCandle = (data, interval, len) => {
+const staticCandle = (data, interval, len) => {
     if(len===1) {
         const formattedData = data.map(([dateTimeString, ltp, totalVolume]) => ({
             time: Math.floor(new Date(dateTimeString).getTime() / 1000), // Convert timestamp to Date object
@@ -62,3 +62,6 @@ export const staticCandle = (data, interval, len) => {
   //console.log(arr)
   return arr;
 }
+
+
+export default staticCandle
