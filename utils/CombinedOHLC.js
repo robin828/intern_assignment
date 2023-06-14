@@ -8,7 +8,7 @@ function convertOHLCtoLTP(data) {
 
   return ltpData;
 }
-export default function combinedThree (arr) {
+export function combinedThree (arr) {
     let back = arr[0];
     let combined = [];
     for(let i=0;i<arr.length-1;i++) {

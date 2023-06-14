@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ChartComponent from "./ChartComponent";
-import staticCandle from "./utils/StaticCandleChart";
-import combinedThree, { combinedTwo } from "./utils/CombinedOHLC";
-import Data1, { Data2, Data3 } from "./utils/Data";
+import {staticCandle} from "../utils/StaticCandleChart";
+import  { combinedThree, combinedTwo } from "../utils/CombinedOHLC";
+import {Data1, Data2, Data3 } from "../utils/Data";
 import './styles.css'
 
 const candleObject = {
