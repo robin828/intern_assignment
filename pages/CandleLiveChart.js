@@ -41,6 +41,7 @@ export const CandleLiveChart = (props) => {
   useEffect(() => {
     async function fetchData() {
       const url = "https://intern-assignment-lgl7-m3i83yz4g-robin828.vercel.app/api/Data2"
+      // const url = "http://localhost:3000/api/Data2"
       await Axios.get(`${url}`).then((res) => {
         setChart1(res.data.ohlcData);
       })
@@ -106,9 +107,9 @@ export const CandleLiveChart = (props) => {
           Candle Live Chart
     </div>
     <div className='p-[50px] rounded-xl'>
-      <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
-      {!started && "Start updating candle"}
-      </button>
+    {!started && <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
+       Start updating candle
+      </button>}
       <Chart layout={chartLayoutOptions}>
         <Series
           ref={series1}
@@ -119,7 +120,6 @@ export const CandleLiveChart = (props) => {
           wickUpColor= '#26a69a'
            wickDownColor= '#ef5350'
            barSpacing= {10}
-        borderColor= 'red'
         />
       </Chart>
       <div className="flex items-center space-x-4 my-[16px] ">
@@ -169,16 +169,16 @@ export const ChartContainer = forwardRef((props, ref) => {
           height: 300,
           timeScale: {
             timeVisible: true,
-            secondsVisible: true,
+            secondsVisible: false,
           },
         });
-        this._api.timeScale().fitContent();
+        // this._api.timeScale().fitContent();
       }
       return this._api;
     },
     free() {
       if (this._api) {
-        this._api.remove();
+        // this._api.remove();
       }
     },
   });
@@ -208,6 +208,11 @@ export const ChartContainer = forwardRef((props, ref) => {
 
   useLayoutEffect(() => {
     const currentRef = chartApiRef.current;
+    const options = {
+      // Other options...
+      barSpacing: 5, // Increase the barSpacing value to increase the distance between candles
+    };
+    currentRef.api().applyOptions(options);
     currentRef.api().applyOptions(rest);
   }, []);
 

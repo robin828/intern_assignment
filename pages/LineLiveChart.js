@@ -32,6 +32,7 @@ export const LiveChart = (props) => {
   useEffect(() => {
     async function fetchData() {
       const url = "https://intern-assignment-lgl7-m3i83yz4g-robin828.vercel.app/api/Data1"
+      // const url = "http://localhost:3000/api/Data1"
       await Axios.get(`${url}`).then((res) => {
         setChart1(res.data.formattedData1);
       });
@@ -80,6 +81,7 @@ export const LiveChart = (props) => {
         <Series
           ref={series1}
           type={"line"}
+          baseValue= { {type: "price", price: 76} }
           // data={initialData}
           upColor= '#26a69a' 
           downColor= '#ef5350'
@@ -129,7 +131,7 @@ export const ChartContainer = forwardRef((props, ref) => {
     },
     free() {
       if (this._api) {
-        this._api.remove();
+        // this._api.remove();
       }
     },
   });
