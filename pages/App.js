@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { ChartComponent } from './ChartComponent';
+import ChartComponent from './ChartComponent';
 import './styles.css'
 const seriesObject = {
     baseValue: { type: "price", price: 76 },
