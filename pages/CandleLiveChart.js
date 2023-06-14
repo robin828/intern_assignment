@@ -40,7 +40,8 @@ export const CandleLiveChart = (props) => {
   const [chart1, setChart1] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      await Axios.get("http://localhost:3000/api/Data2").then((res) => {
+      const url = "https://intern-assignment-lgl7-m3i83yz4g-robin828.vercel.app/api/Data2"
+      await Axios.get(`${url}`).then((res) => {
         setChart1(res.data.ohlcData);
       })
     }

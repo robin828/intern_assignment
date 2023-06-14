@@ -16,7 +16,8 @@ function App(props) {
     const [chartData, setChartData] = useState([]);
     useEffect( ()=>{
         async function fetchData() {
-            await Axios.get("http://localhost:3000/api/Data1").then(res=>{
+            const url = "https://intern-assignment-lgl7-m3i83yz4g-robin828.vercel.app/api/Data1"
+      await Axios.get(`${url}`).then((res) => {
                 setChartData(res.data.formattedData1);
             })
           }
