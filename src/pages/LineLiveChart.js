@@ -15,131 +15,87 @@ import './styles.css'
 
 const Context = createContext();
 
-export const CandleLiveChart = (props) => {
+export const LiveChart = (props) => {
   const {
     colors: {
-        upColor= '#26a69a' ,
-        downColor= '#ef5350',
-        borderVisible= false,
-        wickUpColor= '#26a69a',
-         wickDownColor= '#ef5350'
+      backgroundColor = "white",
+      lineColor = "#2962FF",
+      textColor = "black",
     } = {},
   } = props;
 
   const [chartLayoutOptions, setChartLayoutOptions] = useState({});
 
-  const [selectedOption, setSelectedOption] = useState(60);
-
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  // The following variables illustrate how a series could be updated.
   const series1 = useRef(null);
   const [started, setStarted] = useState(false);
   const [chart1, setChart1] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const url = "https://intern-assignment-lgl7-m3i83yz4g-robin828.vercel.app/api/Data2"
-      // const url = "http://localhost:3000/api/Data2"
+      const url = "api/Data1"
+      // const url = "http://localhost:3000/api/Data1"
       await Axios.get(`${url}`).then((res) => {
-        setChart1(res.data.ohlcData);
-      })
+        setChart1(res.data.formattedData1);
+      });
     }
     fetchData();
   }, []);
-
   let i = 0;
-  let j =0;
-  let high = 0;
-  let low = chart1[0]?.low;
   useEffect(() => {
     if (series1.current === null) {
       return;
     }
+
     if (started) {
-        let next = {};
-
-        
       const interval = setInterval(() => {
-        if(chart1[i].time - chart1[j].time >= selectedOption) {
-        next = {
-          time: chart1[i].time,
-          close: chart1[i].close,
-          open: chart1[i].open,
-          high: chart1[i].high,
-          low: chart1[i].low,
-        };
-        high = chart1[i].high;
-        low = chart1[i].low;
-        j=i;
-        }
-        else {
-            high = Math.max(high, chart1[i].high);
-            low = Math.min(low, chart1[i].low);
-            next = {
-                time: chart1[j].time,
-                close: chart1[i].close,
-                open: chart1[j].open,
-                high: high,
-                low: low,
-              };
-
-        }
-        //console.log(next)
-        series1.current.update(next);
         i = i + 1;
+        const next = {
+          time: chart1[i].time,
+          value: chart1[i].value,
+        };
+        series1.current.update(next);
       }, 1000);
       return () => clearInterval(interval);
     }
   }, [started]);
+
   useEffect(() => {
     setChartLayoutOptions({
-      background: { type: 'solid', color: 'white' 
+      background: {
+        color: backgroundColor,
       },
-      textColor: 'black',
+      textColor,
     });
-  }, []);
+  }, [backgroundColor, textColor]);
 
   return (
+    <>
     <div className='h-[100vh] w-full bg-pageBg flex flex-col justify-center' >
-    <div className='my-[32px] text-white text-[32px] text-center'>
-          Candle Live Chart
+      <div className='my-[32px] text-white text-[32px] text-center'>
+          Line Live Chart
     </div>
     <div className='p-[50px] rounded-xl'>
-    {!started && <button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
-       Start updating candle
+    {!started &&<button type="button"  className="text-[#333333] p-3 my-[16px] bg-white rounded-lg cursor-pointer" onClick={() => setStarted((current) => !current)}>
+         Start updating series
       </button>}
       <Chart layout={chartLayoutOptions}>
         <Series
           ref={series1}
-          type={"candle"}
+          type={"line"}
+          baseValue= { {type: "price", price: 76} }
           // data={initialData}
           upColor= '#26a69a' 
           downColor= '#ef5350'
           wickUpColor= '#26a69a'
            wickDownColor= '#ef5350'
            barSpacing= {10}
+        borderColor= 'red'
         />
       </Chart>
-      <div className="flex items-center space-x-4 my-[16px] ">
-        <label htmlFor="dropdown" className="text-white ">
-          Select an option:
-        </label>
-        <select
-          id="dropdown"
-          value={selectedOption}
-          onChange={handleSelectChange}
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value={60}>1 min</option>
-          <option value={120}>2 min</option>
-          <option value={300}>5 min</option>
-          <option value={1800}>30 min</option>
-        </select>
-      </div>
+      
   </div>
         </div>
+      
+    </>
   );
 };
 
@@ -147,12 +103,9 @@ export function Chart(props) {
   const [container, setContainer] = useState(false);
   const handleRef = useCallback((ref) => setContainer(ref), []);
   return (
-    <>
     <div ref={handleRef}>
       {container && <ChartContainer {...props} container={container} />}
     </div>
-    
-    </>
   );
 }
 
@@ -172,7 +125,7 @@ export const ChartContainer = forwardRef((props, ref) => {
             secondsVisible: false,
           },
         });
-        // this._api.timeScale().fitContent();
+        this._api.timeScale().fitContent();
       }
       return this._api;
     },
@@ -197,7 +150,7 @@ export const ChartContainer = forwardRef((props, ref) => {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
-      chart?.remove();
+      chart.remove();
     };
   }, []);
 
@@ -208,11 +161,6 @@ export const ChartContainer = forwardRef((props, ref) => {
 
   useLayoutEffect(() => {
     const currentRef = chartApiRef.current;
-    const options = {
-      // Other options...
-      barSpacing: 5, // Increase the barSpacing value to increase the distance between candles
-    };
-    currentRef.api().applyOptions(options);
     currentRef.api().applyOptions(rest);
   }, []);
 
@@ -236,9 +184,12 @@ export const Series = forwardRef((props, ref) => {
   const context = useRef({
     api() {
       if (!this._api) {
-        //console.log(props)
         const { children, data, type, ...rest } = props;
-        this._api = type !== "line" && parent.api().addCandlestickSeries({ ...rest });
+        this._api =
+          type === "line"
+            ? parent.api().addBaselineSeries(rest)
+            : parent.api().addCandlestickSeries(rest);
+        // this._api.setData(data);
       }
       return this._api;
     },
@@ -272,4 +223,4 @@ export const Series = forwardRef((props, ref) => {
 });
 Series.displayName = "Series";
 
-export default CandleLiveChart;
+export default LiveChart;
