@@ -1,6 +1,6 @@
 import { createChart, ColorType } from "lightweight-charts";
 import React, { useEffect, useRef } from "react";
-export const ChartComponent = (props) => {
+const ChartComponent = (props) => {
   const {
     data,
     type,
@@ -92,3 +92,5 @@ export const ChartComponent = (props) => {
 
   return <div ref={chartContainerRef} />;
 };
+
+export  default ChartComponent

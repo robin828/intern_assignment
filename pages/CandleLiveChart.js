@@ -84,7 +84,7 @@ export const CandleLiveChart = (props) => {
               };
 
         }
-        console.log(next)
+        //console.log(next)
         series1.current.update(next);
         i = i + 1;
       }, 1000);
@@ -230,7 +230,7 @@ export const Series = forwardRef((props, ref) => {
   const context = useRef({
     api() {
       if (!this._api) {
-        console.log(props)
+        //console.log(props)
         const { children, data, type, ...rest } = props;
         this._api = type !== "line" && parent.api().addCandlestickSeries({ ...rest });
       }

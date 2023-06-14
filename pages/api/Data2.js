@@ -5633,7 +5633,7 @@ formattedData.forEach((dataPoint, ind) => {
   
 });
 
-  console.log(ohlcData)
+  //console.log(ohlcData)
 
 
 const handler = async (req, res) => {

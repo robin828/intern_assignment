@@ -59,6 +59,6 @@ export const staticCandle = (data, interval, len) => {
       low = Math.min(low, data[i].low);
     }
   }
-  console.log(arr)
+  //console.log(arr)
   return arr;
 }

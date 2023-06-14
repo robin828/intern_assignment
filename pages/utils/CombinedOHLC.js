@@ -18,7 +18,7 @@ export function combinedThree (arr) {
     return combined;
 }
 export const combinedTwo = (Data1, Data2) => {
-    console.log(Data1, Data2, "{}{}]]]]");
+    //console.log(Data1, Data2, "{}{}]]]]");
 
     const combinedOHLC = [];
     for (let i = 0; i < Math.min(Data1.length, Data2.length); i++) {
@@ -33,7 +33,7 @@ export const combinedTwo = (Data1, Data2) => {
 
       combinedOHLC.push({ time, open, high, low, close });
     }
-    console.log(combinedOHLC);
+    //console.log(combinedOHLC);
 
     return combinedOHLC;
 

@@ -3,9 +3,6 @@ import { useRouter } from 'next/router';
 import './styles.css'
 function index() {
     const router = useRouter();
-    const handleRedirect = () => {
-        router.push('/App');
-      };
   return (
     
     <div className='h-[100vh] w-full bg-pageBg flex flex-col justify-center' >

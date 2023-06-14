@@ -5609,7 +5609,7 @@ const handler = async (req, res) => {
     if (req.method === 'GET') {
       // To test the server environment
       try {
-        console.log("********", formattedData1)
+        //console.log("********", formattedData1)
         res.json({formattedData1});
       } catch (error) {
         res.status(500).json({

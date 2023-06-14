@@ -49,7 +49,7 @@ function MultipleInstrument(props) {
 
 
   const multiSeries = (Data1, Data2) => {
-    console.log(Data1, Data2);
+    //console.log(Data1, Data2);
     let combinedOHLC = combinedTwo(Data1, Data2);
     let arr = staticCandle(combinedOHLC, selectedOption, 3);
     setData(arr.sort((a, b) => a.time - b.time));
@@ -62,7 +62,7 @@ function MultipleInstrument(props) {
       checkboxValues.checkbox3
     ) {
         let combinedOHLC = combinedThree([Data1, Data2, Data3]);
-        console.log(combinedOHLC, "{}{}")
+        //console.log(combinedOHLC, "{}{}")
         let arr = staticCandle(combinedOHLC, selectedOption, 3);
         setData(arr.sort((a, b) => a.time - b.time));
     } else if (checkboxValues.checkbox1 && checkboxValues.checkbox2) {
